@@ -1,101 +1,29 @@
-# 🚀 Multithreaded Performance Lab (C++)
 
-Bu depo, C++ dilinde paralel programlama ve multithreading mimarileri üzerine geliştirdiğim projeleri içermektedir. Projeler, metin tabanlı veri analizinden gerçek zamanlı görüntü işlemeye kadar geniş bir yelpazeyi kapsar.
+🚀 Multithreaded C++ Performance Lab
+Bu depo, Konya Teknik Üniversitesi bünyesindeki yüksek lisans çalışmalarım kapsamında geliştirdiğim, C++ dilinde paralel programlama ve multithreading mimarileri üzerine odaklanan projelerimi içermektedir.
 
----
+📊 1. Multi-Threaded Log Analyzer
+Bu çalışma, büyük ölçekli sistem log dosyalarını (Hadoop_2k.log) analiz ederek Single-Thread ve Multi-Thread yöntemleri arasındaki performans farklarını karşılaştırır.
 
-## 📸 1. Real-Time Face Blurring (SSD + Multithreading)
+Teknik: std::mutex ve lock_guard kullanılarak thread-safe veri yönetimi sağlanmıştır.
 
-Bu proje, **OpenCV DNN** modülünü ve **Producer-Consumer** (Üretici-Tüketici) tasarım desenini kullanarak videolardaki yüzleri tespit eder ve gerçek zamanlı olarak bulanıklaştırır.
+Kapsam: Dosya okuma ve metin tabanlı veri işleme süreçlerinde paralelleştirme başarımı ölçülmüştür.
 
-### 🛠 Teknik Özellikler
-- **Model:** Caffe tabanlı ResNet-10 SSD (Single Shot MultiBox Detector).
-- **Mimari:** Görüntü yakalama (Main Thread) ve işleme (Worker Threads) süreçleri `std::condition_variable` ve `std::mutex` ile senkronize edilmiştir.
-- **Optimizasyon:** MacBook M-serisi (8-thread) üzerinde sıfır gecikme (**Zero Latency**) sağlamak için "Latest Frame Only" kuyruk yönetimi uygulanmıştır.
+📸 2. Real-Time Face Blurring (Gelişmiş Seviye)
+Log analizindeki multithreading tecrübesini bir adım öteye taşıyarak, yoğun veri akışı olan video işleme alanına odaklanılmıştır. Bu proje, OpenCV DNN modülünü kullanarak videolardaki yüzleri gerçek zamanlı tespit eder ve bulanıklaştırır.
 
-### 🚀 Nasıl Çalıştırılır?
-```bash
+🛠 Öne Çıkan Özellikler
+Mimarî: Görüntü yakalama ve işleme süreçleri Producer-Consumer (Üretici-Tüketici) tasarım deseniyle std::condition_variable kullanılarak senkronize edilmiştir.
+
+Yapay Zeka: Caffe tabanlı ResNet-10 SSD modeli kullanılarak yüksek doğruluklu yüz tespiti yapılır.
+
+Optimizasyon: MacBook M-serisi (8-thread) üzerinde sıfır gecikme (Zero Latency) sağlamak için özel bir kuyruk (queue) temizleme mantığı geliştirilmiştir.
+
+# Projeyi derlemek için:
 g++ -std=c++17 Face-Blurring/video_processor.cpp -o blur_exe `pkg-config --cflags --libs opencv4`
+
+# Çalıştırmak için:
 ./blur_exe
 
-
-Gemini şunu dedi:
-Görünüşe göre GitHub, yapıştırdığın metni "Markdown" formatı yerine düz yazı olarak algılamış ve her şeyi birbirine katmış. Markdown dosyasında başlıklar (#), listeler (-) ve kod blokları arasında mutlaka boş satır olması gerekir. Aksi takdirde böyle sıkışık görünür.
-
-Hadi şu README.md dosyasını terminalden veya GitHub arayüzünden şu boşluklara dikkat ederek tekrar güncelleyelim.
-
-Doğru Markdown Formatı (Kopyala ve Yapıştır):
-Markdown
-# 🚀 Multithreaded Performance Lab (C++)
-
-Bu depo, C++ dilinde paralel programlama ve multithreading mimarileri üzerine geliştirdiğim projeleri içermektedir. Projeler, metin tabanlı veri analizinden gerçek zamanlı görüntü işlemeye kadar geniş bir yelpazeyi kapsar.
-
----
-
-## 📸 1. Real-Time Face Blurring (SSD + Multithreading)
-
-Bu proje, **OpenCV DNN** modülünü ve **Producer-Consumer** (Üretici-Tüketici) tasarım desenini kullanarak videolardaki yüzleri tespit eder ve gerçek zamanlı olarak bulanıklaştırır.
-
-### 🛠 Teknik Özellikler
-- **Model:** Caffe tabanlı ResNet-10 SSD (Single Shot MultiBox Detector).
-- **Mimari:** Görüntü yakalama (Main Thread) ve işleme (Worker Threads) süreçleri `std::condition_variable` ve `std::mutex` ile senkronize edilmiştir.
-- **Optimizasyon:** MacBook M-serisi (8-thread) üzerinde sıfır gecikme (**Zero Latency**) sağlamak için "Latest Frame Only" kuyruk yönetimi uygulanmıştır.
-
-### 🚀 Nasıl Çalıştırılır?
-```bash
-g++ -std=c++17 Face-Blurring/video_processor.cpp -o blur_exe `pkg-config --cflags --libs opencv4`
-./blur_exe
-
-📊 2. Multi-Threaded Log Analyzer
-Büyük ölçekli sistem log dosyalarını (Hadoop_2k.log gibi) analiz ederek performans farklarını karşılaştırır.
-
-🛠 Teknik Özellikler
-Kütüphaneler: <thread>, <mutex>, <chrono>.
-
-Güvenlik: std::lock_guard kullanılarak thread-safe sayaç yönetimi yapılmıştır.
-Yöntem,Analiz Süresi
-Single-Thread,~0.002s
-Multi-Thread,~0.001s
-
-Gemini şunu dedi:
-Görünüşe göre GitHub, yapıştırdığın metni "Markdown" formatı yerine düz yazı olarak algılamış ve her şeyi birbirine katmış. Markdown dosyasında başlıklar (#), listeler (-) ve kod blokları arasında mutlaka boş satır olması gerekir. Aksi takdirde böyle sıkışık görünür.
-
-Hadi şu README.md dosyasını terminalden veya GitHub arayüzünden şu boşluklara dikkat ederek tekrar güncelleyelim.
-
-Doğru Markdown Formatı (Kopyala ve Yapıştır):
-Markdown
-# 🚀 Multithreaded Performance Lab (C++)
-
-Bu depo, C++ dilinde paralel programlama ve multithreading mimarileri üzerine geliştirdiğim projeleri içermektedir. Projeler, metin tabanlı veri analizinden gerçek zamanlı görüntü işlemeye kadar geniş bir yelpazeyi kapsar.
-
----
-
-## 📸 1. Real-Time Face Blurring (SSD + Multithreading)
-
-Bu proje, **OpenCV DNN** modülünü ve **Producer-Consumer** (Üretici-Tüketici) tasarım desenini kullanarak videolardaki yüzleri tespit eder ve gerçek zamanlı olarak bulanıklaştırır.
-
-### 🛠 Teknik Özellikler
-- **Model:** Caffe tabanlı ResNet-10 SSD (Single Shot MultiBox Detector).
-- **Mimari:** Görüntü yakalama (Main Thread) ve işleme (Worker Threads) süreçleri `std::condition_variable` ve `std::mutex` ile senkronize edilmiştir.
-- **Optimizasyon:** MacBook M-serisi (8-thread) üzerinde sıfır gecikme (**Zero Latency**) sağlamak için "Latest Frame Only" kuyruk yönetimi uygulanmıştır.
-
-### 🚀 Nasıl Çalıştırılır?
-```bash
-g++ -std=c++17 Face-Blurring/video_processor.cpp -o blur_exe `pkg-config --cflags --libs opencv4`
-./blur_exe
-📊 2. Multi-Threaded Log Analyzer
-Büyük ölçekli sistem log dosyalarını (Hadoop_2k.log gibi) analiz ederek performans farklarını karşılaştırır.
-
-🛠 Teknik Özellikler
-Kütüphaneler: <thread>, <mutex>, <chrono>.
-
-Güvenlik: std::lock_guard kullanılarak thread-safe sayaç yönetimi yapılmıştır.
-
-📉 Performans Verileri
-Yöntem	Analiz Süresi
-Single-Thread	~0.002s
-Multi-Thread	~0.001s
-
-🎓 Akademik Bağlam
-Bu projeler, Konya Teknik Üniversitesi bünyesinde yürüttüğüm Veri Bilimi ve Yapay Zeka yüksek lisans çalışmalarımdaki "Paralel Programlama" ve "Görüntü İşleme" konularına pratik bir yaklaşım sunmaktadır.
-
+🎓 Akademik Not
+Bu projeler, Yazılım Mühendisliği temelleri üzerine inşa edilen Veri Bilimi ve Yapay Zeka uzmanlık sürecindeki teknik gelişimimi temsil etmektedir.
